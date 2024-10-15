@@ -1,0 +1,13 @@
+<h1>Iniciar Sesión</h1>
+
+{{error}}
+
+<form action ="/iniciarsesion/" method = "POST">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button>
+        Iniciar Sesion
+    </button>
+</form>
+
