@@ -56,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
+        'APP_DIRS': True, # debe estar en true para que el django busque en la carpeta "templates" de cada app
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
