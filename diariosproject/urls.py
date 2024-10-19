@@ -22,7 +22,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('search/', views.search_books, name='search_books'),   #path del buscador (agustin)
+    path('search_form/', views.search_form, name='search_form'),  #path del buscador (agustin)
     path('iniciarsesion/', views.iniciarsesion, name = 'iniciarsesion')
 
 ]
