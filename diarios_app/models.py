@@ -5,8 +5,7 @@ class Diarios(models.Model):
     fecha = models.DateField(null = True, blank = True)
     pre_visualizacion = models.ImageField(null = True, blank = True)
     localidad = models.CharField(max_length=16)
-    
-    
 
+def __str__(self):
+        return self.nombre
     
-
