@@ -1,0 +1,11 @@
+<h1>Resultados de búsqueda para: "{{ query }}"</h1>
+
+{% if results %}
+    <ul>
+        {% for diarios in results %}
+            <li>{{ diarios.nombre }} - Publicado el: {{ diarios.fecha }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No se encontraron periódicos.</p>
+{% endif %}
