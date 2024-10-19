@@ -45,5 +45,8 @@ def search_diarios(request):
         results = Diarios.objects.filter(nombre__icontains=query)  # Filtrar por nombre que contiene la solicitud. (agustin)
     return render(request, 'search_results.html', {'query': query, 'results': results})
 
+def search_form(request): 
+    return render(request, 'search_form.html')
+
 
 
