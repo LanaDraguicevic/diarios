@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import login 
+from .models import Diarios
+
 
 
 
@@ -36,6 +38,12 @@ def iniciarsesion(request):
                 "error": 'Las contraseñas no coinciden'
             })
 
+def search_diarios(request):
+    query = request.GET.get('q')
+    results = []
+    if query:
+        results = Diarios.objects.filter(nombre__icontains=query)  # Filtrar por nombre que contiene la solicitud. (agustin)
+    return render(request, 'search_results.html', {'query': query, 'results': results})
 
 
 
