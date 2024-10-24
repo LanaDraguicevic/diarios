@@ -1,6 +1,6 @@
 <!-- archivo para el formulario de busqueda  (agustin) -->
  
 <form action="{% url 'search_diarios' %}" method="get">
-    <input type="text" name="q" placeholder="Buscar perdiódicos por nombre...">
+    {{form.as_p}}
     <button type="submit">Buscar</button>
 </form>

@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('search_form/', views.search_form, name='search_form'),  #path del buscador (agustin)
+    path('search_diarios/', views.search_diarios, name='search_diarios'),
     path('iniciarsesion/', views.iniciarsesion, name = 'iniciarsesion')
 
 ]
