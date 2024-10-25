@@ -15,8 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.urls import  path
+from django.contrib.auth import views as auth_views
 from django.urls import  path, include
 from diarios_app import views
+#from . import views esto no deberia estar
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -26,9 +29,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('search_form/', views.search_form, name='search_form'),  #path del buscador (agustin)
+    path('search_form/', views.search_form, name='search_form'),#( buscador (agustin))
     path('search_diarios/', views.search_diarios, name='search_diarios'),
-    path('iniciarsesion/', views.iniciarsesion, name = 'iniciarsesion'),
-    path('diario/<int:diario_id>/', views.detalle_diario, name='detalle_diario'),
-
+    path('iniciarsesion/', views.iniciarsesion, name='iniciarsesion'),  # Ruta para el registro
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('diario/<int:diario_id>/', views.detalle_diario, name='detalle_diario')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

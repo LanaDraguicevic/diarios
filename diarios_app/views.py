@@ -12,30 +12,20 @@ def home(request):
     return render(request, 'home.html')
 
 def iniciarsesion(request):
-    if request.method == 'GET':
-         return render(request, 'signup.html',{
-        'form': UserCreationForm
-         })
-
-    else:
-        if request.POST['password1'] == request.POST['password2']:
-            #registrar usuario
-            try:
-                user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
-                user.save()
-                login(request, user)
-                return HttpResponse('Usuario creado con exito')
-            except:
-                return render(request, 'signup.html',{
-                'form': UserCreationForm,
-                "error": 'El nombre de usuario ya existe'
-                })
-
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Guardar el usuario directamente desde el formulario
+            login(request, user)  # Iniciar sesión automáticamente
+            messages.success(request, "Registro exitoso. ¡Bienvenido!")
+            return redirect('home')  # Redirigir al home
         else:
-            return render(request, 'signup.html',{
-                'form': UserCreationForm,
-                "error": 'Las contraseñas no coinciden'
-            })
+            # Si el formulario no es válido, mostrar los errores
+            return render(request, 'signup.html', {'form': form})
+    else:
+        form = UserCreationForm()
+        return render(request, 'signup.html', {'form': form})
+
 
 def search_form(request):
     form = Busqueda()

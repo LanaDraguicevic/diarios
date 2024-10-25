@@ -1,0 +1,14 @@
+<h1>Iniciar Sesión</h1>
+
+{% if form.non_field_errors %}
+    <p style="color:red;">{{ form.non_field_errors }}</p>
+{% endif %}
+
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }} 
+
+    <button type="submit">Iniciar Sesión</button>
+</form>
+
+<p>¿No tienes cuenta? <a href="{% url 'iniciarsesion' %}">Regístrate aquí</a></p>
