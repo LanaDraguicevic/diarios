@@ -16,14 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import  path
+from django.contrib.auth import views as auth_views
 from diarios_app import views
-
+#from . import views esto no deberia estar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('search_form/', views.search_form, name='search_form'),  #path del buscador (agustin)
-    path('search_diarios/', views.search_diarios, name='search_diarios'),
-    path('iniciarsesion/', views.iniciarsesion, name = 'iniciarsesion')
-
+    path('search_form/', views.search_form, name='search_form'),#( buscador (agustin))
+    path('iniciarsesion/', views.iniciarsesion, name='iniciarsesion'),  # Ruta para el registro
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
