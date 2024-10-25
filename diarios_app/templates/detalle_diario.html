@@ -1,0 +1,11 @@
+<title>{{diario.titulo}}</title>
+<h1>{{diario.titulo}}</h1>
+
+<p>{{diario.pre_visualizacion.url}}</p>
+<img scr="{{ diario.pre_visualizacion.url }}" alt="Previsualizacion de {{ diario.titulo }}" width="300">
+
+<p><strong>Fecha:</strong> {{diario.fecha}}</p>
+<p><strong>Localidad:</strong>{{diario.localidad}}</p>
+<p><strong>Codigo:</strong>{{diario.cod}}</p>
+
+<a href="{% url 'search_form' %}">Volver a la búsqueda</a>

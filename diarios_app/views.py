@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -66,7 +66,9 @@ def search_diarios(request):
             return render(request, 'search_results.html', {'form': form, 'results': resultados})
     return render(request, 'search_form.html', {'form': form})
 
-
+def detalle_diario(request, diario_id):
+    diario = get_object_or_404(Diarios, id=diario_id)
+    return render(request, 'detalle_diario.html',{'diario':diario})
 
 
 

@@ -15,8 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import  path
+from django.urls import  path, include
 from diarios_app import views
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 
 
 urlpatterns = [
@@ -24,6 +28,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('search_form/', views.search_form, name='search_form'),  #path del buscador (agustin)
     path('search_diarios/', views.search_diarios, name='search_diarios'),
-    path('iniciarsesion/', views.iniciarsesion, name = 'iniciarsesion')
+    path('iniciarsesion/', views.iniciarsesion, name = 'iniciarsesion'),
+    path('diario/<int:diario_id>/', views.detalle_diario, name='detalle_diario'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
