@@ -1,13 +1,13 @@
-<h1>Iniciar Sesión</h1>
+<h1>Registrarse</h1>
 
-{{error}}
 
-<form action ="/iniciarsesion/" method = "POST">
+{% if form.errors %}
+    <p style="color:red;">{{ form.errors }}</p>
+{% endif %}
+
+<form action="{% url 'iniciarsesion' %}" method="POST">
     {% csrf_token %}
-    {{form.as_p}}
+    {{ form.as_p }}
 
-    <button>
-        Iniciar Sesion
-    </button>
+    <button type="submit">Registrarse</button>
 </form>
-    
