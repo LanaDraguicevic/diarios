@@ -34,6 +34,8 @@ urlpatterns = [
     path('iniciarsesion/', views.iniciarsesion, name='iniciarsesion'),  # Ruta para el registro
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('diario/<int:diario_id>/', views.detalle_diario, name='detalle_diario')
+    path('diario/<int:diario_id>/', views.detalle_diario, name='detalle_diario'),
+    path('Historial/<int:diario_id>/', views.registrar_visita, name='registrar_visita'),
+    path('perfil_usuario/', views.perfil_usuario, name='perfil_usuario')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

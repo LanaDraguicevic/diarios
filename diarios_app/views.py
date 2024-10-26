@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.contrib.auth import login 
-from .models import Diarios
-from .forms import Busqueda
+from django.contrib.auth import login, authenticate
+from .models import Diarios, Historial
+from .forms import Busqueda, VisitaDiariosForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
@@ -61,4 +64,21 @@ def detalle_diario(request, diario_id):
     return render(request, 'detalle_diario.html',{'diario':diario})
 
 
+@login_required
+def registrar_visita(request, diario_id):
+    diario = get_object_or_404(Diarios, id=diario_id)
+    if request.method == 'POST':
+        Historial.objects.get_or_create(usuario=request.user, diario=diario)
+        messages.success(request, 'Diario pedido, espere en el meson.')
+        return redirect('detalle_diario', diario_id=diario_id)
+    
+    return render(request, 'detalle_diario.html', {'diario': diario})
 
+@login_required
+def perfil_usuario(request):
+
+    usuario = request.user
+    historial_diarios = Historial.objects.filter(usuario=request.user).select_related('diario')
+
+   
+    return render(request, 'perfil_usuario.html/', {'historial':historial_diarios})

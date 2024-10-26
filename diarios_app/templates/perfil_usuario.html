@@ -1,0 +1,15 @@
+<h1>Bienvenido, {{ user.username }}</h1>
+<h2>Historial de Diarios</h2>
+<ul>
+    {% for item in historial %}
+        <li>{{ item.diario.titulo }} - {{ item.fecha_visita }}</li>
+    {% empty %}
+        <li>No hay historial de visitas.</li>
+    {% endfor %}
+</ul>
+
+<div>
+    <a href="{% url 'home' %}">
+        <button type = "button">Volver al Home</button>
+    </a> 
+</div>

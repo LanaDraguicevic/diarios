@@ -1,4 +1,5 @@
 from django import forms
+from .models import Historial
 
 class Busqueda(forms.Form):
 
@@ -13,3 +14,7 @@ class Busqueda(forms.Form):
     localidad = forms.ChoiceField(required=False, label='Localidad', choices=LOCALIDAD_CHOICES)
 
 
+class VisitaDiariosForm(forms.ModelForm):
+    class Meta:
+        model = Historial
+        fields = []

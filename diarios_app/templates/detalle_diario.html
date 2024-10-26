@@ -1,7 +1,7 @@
 <title>{{diario.titulo}}</title>
 <h1>{{diario.titulo}}</h1>
 
-<p>{{diario.pre_visualizacion.url}}</p>
+
 <img scr="{{ diario.pre_visualizacion.url }}" alt="Previsualizacion de {{ diario.titulo }}" width="300">
 
 <p><strong>Fecha:</strong> {{diario.fecha}}</p>
@@ -9,3 +9,16 @@
 <p><strong>Codigo:</strong>{{diario.cod}}</p>
 
 <a href="{% url 'search_form' %}">Volver a la búsqueda</a>
+
+<form action="{% url 'registrar_visita' diario.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">PEDIR DIARIO</button>
+</form>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
