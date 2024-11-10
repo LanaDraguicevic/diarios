@@ -2,7 +2,7 @@
 <h1>{{diario.titulo}}</h1>
 
 
-<img scr="{{ diario.pre_visualizacion.url }}" alt="Previsualizacion de {{ diario.titulo }}" width="300">
+<img src="{{ diario.pre_visualizacion.url }}" alt="Previsualizacion de {{ diario.titulo }}" width="300">
 
 <p><strong>Fecha:</strong> {{diario.fecha}}</p>
 <p><strong>Localidad:</strong>{{diario.localidad}}</p>
@@ -12,7 +12,17 @@
 
 <form action="{% url 'registrar_visita' diario.id %}" method="POST">
     {% csrf_token %}
-    <button type="submit">PEDIR DIARIO</button>
+    {% if user.is_authenticated %}
+        {% if disponibilidad.disponible %}
+            <button type="submit">Pedir diario</button>
+        {% else %}
+            <button type="button" disabled>Diario no disponible</button>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'login' %}">
+            <button type="button">Inicia sesión para pedir un diario</button>
+        </a>
+    {% endif %}
 </form>
 {% if messages %}
     <ul class="messages">

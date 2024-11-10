@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
-from .models import Diarios, Historial
+from .models import Diarios, Historial, DiarioDisponibilidad
 from .forms import Busqueda, VisitaDiariosForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -61,17 +61,42 @@ def search_diarios(request):
 
 def detalle_diario(request, diario_id):
     diario = get_object_or_404(Diarios, id=diario_id)
-    return render(request, 'detalle_diario.html',{'diario':diario})
+    disponibilidad = DiarioDisponibilidad.objects.filter(codigo=diario.cod).first()  # Obtener la disponibilidad actualizada
+
+    if request.method == 'POST' and disponibilidad:
+        if disponibilidad.disponible:
+            # Crear el historial solo si está disponible
+            Historial.objects.get_or_create(usuario=request.user, diario=diario)
+            disponibilidad.disponible = False  # Marcar como no disponible
+            disponibilidad.save()
+            messages.success(request, 'Diario pedido, espere en el mesón.')
+        else:
+            messages.error(request, 'Este diario no está disponible.')
+
+    # Recargar la disponibilidad actualizada
+    disponibilidad = DiarioDisponibilidad.objects.filter(codigo=diario.cod).first()
+
+    return render(request, 'detalle_diario.html', {'diario': diario, 'disponibilidad': disponibilidad})
 
 
 @login_required
 def registrar_visita(request, diario_id):
     diario = get_object_or_404(Diarios, id=diario_id)
-    if request.method == 'POST':
-        Historial.objects.get_or_create(usuario=request.user, diario=diario)
-        messages.success(request, 'Diario pedido, espere en el meson.')
+
+    # Lógica para verificar la disponibilidad
+    disponibilidad = DiarioDisponibilidad.objects.filter(codigo=diario.cod).first()
+    if disponibilidad and disponibilidad.disponible:
+        if request.method == 'POST':
+            Historial.objects.get_or_create(usuario=request.user, diario=diario)
+            # Actualización de la disponibilidad a False
+            disponibilidad.disponible = False
+            disponibilidad.save()
+            messages.success(request, 'Diario pedido, espere en el mesón.')
+            return redirect('detalle_diario', diario_id=diario_id)
+    else:
+        messages.error(request, 'Este diario no está disponible.')
         return redirect('detalle_diario', diario_id=diario_id)
-    
+
     return render(request, 'detalle_diario.html', {'diario': diario})
 
 @login_required

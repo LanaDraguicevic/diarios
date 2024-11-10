@@ -8,14 +8,12 @@
     <ul>
         {% for diario in results %}
             <li>
-                <a href="{%url 'detalle_diario' diario.id %} ">
-                {{ diario.titulo }}
-            </a> - {{ diario.fecha }} - {{ diario.localidad }}
+                <a href="{% url 'detalle_diario' diario.id %}">{{ diario.titulo }}</a> - {{ diario.fecha }} - {{ diario.localidad }}
             </li>
         {% empty %}
             <li>No se encontraron resultados.</li>
         {% endfor %}
-    </ul>
+    </ul>    
 
     <div>
         <a href="{% url 'home' %}">
