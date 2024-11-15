@@ -22,6 +22,7 @@ from diarios_app import views
 #from . import views esto no deberia estar
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 
 
@@ -29,6 +30,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('solicitar_diario/<int:diario_id>/', views.solicitar_diario, name='solicitar_diario'),
     path('search_form/', views.search_form, name='search_form'),#( buscador (agustin))
     path('search_diarios/', views.search_diarios, name='search_diarios'),
     path('iniciarsesion/', views.iniciarsesion, name='iniciarsesion'),  # Ruta para el registro
