@@ -34,3 +34,13 @@ class Meta:
 def __str__(self):
         return self.nombre
     
+class DiarioSolicitud(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    diario = models.ForeignKey(Diarios, on_delete=models.CASCADE)
+    fecha_solicitud = models.DateTimeField(auto_now_add=True)
+    devuelto = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.diario.titulo} - {self.fecha_solicitud.strftime('%Y-%m-%d %H:%M:%S')}"
+
+    
