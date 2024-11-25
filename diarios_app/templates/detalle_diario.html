@@ -1,7 +1,6 @@
 <title>{{diario.titulo}}</title>
 <h1>{{diario.titulo}}</h1>
 
-
 <img src="{{ diario.pre_visualizacion.url }}" alt="Previsualizacion de {{ diario.titulo }}" width="300">
 
 <p><strong>Fecha:</strong> {{diario.fecha}}</p>
@@ -16,7 +15,7 @@
         {% if disponibilidad.disponible %}
             <button type="submit">Pedir diario</button>
         {% else %}
-            <button type="button" disabled>Diario no disponible</button>
+            <p>Este diario no está disponible actualmente.</p>
         {% endif %}
     {% else %}
         <a href="{% url 'login' %}">
@@ -24,6 +23,7 @@
         </a>
     {% endif %}
 </form>
+
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -31,6 +31,7 @@
         {% endfor %}
     </ul>
 {% endif %}
+
 <!-- Formulario para registrar la solicitud del diario -->
 <form action="{% url 'solicitar_diario' diario.id %}" method="POST">
     {% csrf_token %}
@@ -45,5 +46,3 @@
         {% endfor %}
     </ul>
 {% endif %}
-
-
