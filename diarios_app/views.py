@@ -110,9 +110,7 @@ def registrar_visita(request, diario_id):
 
 @login_required
 def perfil_usuario(request):
-
     usuario = request.user
     historial_diarios = Historial.objects.filter(usuario=request.user).select_related('diario')
 
-   
-    return render(request, 'perfil_usuario.html/', {'historial':historial_diarios})
+    return render(request, 'perfil_usuario.html', {'historial': historial_diarios})
