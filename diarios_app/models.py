@@ -28,10 +28,10 @@ class Historial(models.Model):
     diario = models.ForeignKey(Diarios, on_delete=models.CASCADE)
     fecha_visita= models.DateTimeField(auto_now_add=True)
 
-class Meta:
+    class Meta:
      unique_together = ('usuario', 'diario')
 
-def __str__(self):
+    def __str__(self):
         return self.nombre
     
 class DiarioSolicitud(models.Model):
