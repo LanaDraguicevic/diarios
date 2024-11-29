@@ -4,84 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
-    <style>
-        /* Estilos comunes basados en home.html */
-        .auth-buttons {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
-        .auth-buttons button, .auth-buttons a {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .auth-buttons a:hover, .auth-buttons button:hover {
-            background-color: #0056b3;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        form button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        form button:hover {
-            background-color: #0056b3;
-        }
-
-        p {
-            text-align: center;
-        }
-
-        p a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        p a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <h1>Registrarse</h1>
+<body class="library-theme">
+    <header>
+        <h1>Registrarse</h1>
+    </header>
+    <main>
+        {% if form.errors %}
+            <p class="alert">{{ form.errors }}</p>
+        {% endif %}
+        
+        <form action="{% url 'iniciarsesion' %}" method="POST" class="auth-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button primary">Registrarse</button>
+        </form>
 
-    {% if form.errors %}
-        <p style="color:red; text-align: center;">{{ form.errors }}</p>
-    {% endif %}
-
-    <form action="{% url 'iniciarsesion' %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-
-        <button type="submit">Registrarse</button>
-    </form>
-
-    <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></p>
+        <p>¿Ya tienes una cuenta? 
+            <a href="{% url 'login' %}" class="link">Inicia sesión aquí</a>
+        </p>
+    </main>
 </body>
 </html>
+
