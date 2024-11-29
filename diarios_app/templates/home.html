@@ -1,66 +1,33 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hemeroteca Biblioteca Nacional</title>
-    <style>
-        
-        .auth-buttons {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
-        .auth-buttons form, .auth-buttons a {
-            display: inline-block;
-            margin-left: 10px;
-        }
-
-        /* Estilos para los botones */
-        .auth-buttons button, .auth-buttons a {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .auth-buttons a:hover, .auth-buttons button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <h1>Diarios Biblioteca Nacional</h1>
-
-  
-    <div class="auth-buttons">
-        
-        {% if request.user.is_authenticated %}
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit">Cerrar Sesión</button>
-            </form>
-        
-        {% else %}
-            <a href="{% url 'login' %}">Iniciar Sesión</a>
-            <a href="{% url 'iniciarsesion' %}">Registrarse</a>
-        {% endif %}
-    </div>
-
-    <div>
-        <a href="{% url 'search_form' %}">
-            <button type="button">Abrir buscador de diarios</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'perfil_usuario' %}">
-            <button type = "button">Perfil</button>
-        </a> 
-    </div>
-
+<body class="library-theme">
+    <header>
+        <h1>Diarios Biblioteca Nacional</h1>
+        <div class="auth-buttons">
+            {% if request.user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="button">Cerrar Sesión</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="button">Iniciar Sesión</a>
+                <a href="{% url 'iniciarsesion' %}" class="button">Registrarse</a>
+            {% endif %}
+        </div>
+    </header>
+    <main>
+        <nav>
+            <a href="{% url 'search_form' %}" class="button">Abrir buscador de diarios</a>
+            <a href="{% url 'perfil_usuario' %}" class="button">Perfil</a>
+        </nav>
+    </main>
 </body>
 </html>
+
