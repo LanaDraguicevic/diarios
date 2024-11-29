@@ -1,14 +1,26 @@
-<h1>Iniciar Sesión</h1>
 
-{% if form.non_field_errors %}
-    <p style="color:red;">{{ form.non_field_errors }}</p>
-{% endif %}
-
-<form action="{% url 'login' %}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }} 
-
-    <button type="submit">Iniciar Sesión</button>
-</form>
-
-<p>¿No tienes cuenta? <a href="{% url 'iniciarsesion' %}">Regístrate aquí</a></p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="library-theme">
+    <header>
+        <h1>Iniciar Sesión</h1>
+    </header>
+    <main>
+        {% if form.non_field_errors %}
+            <p class="alert">{{ form.non_field_errors }}</p>
+        {% endif %}
+        <form action="{% url 'login' %}" method="POST" class="login-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button primary">Iniciar Sesión</button>
+        </form>
+        <p>¿No tienes cuenta? <a href="{% url 'iniciarsesion' %}" class="link">Regístrate aquí</a></p>
+    </main>
+</body>
+</html>
