@@ -1,48 +1,37 @@
-<title>{{diario.titulo}}</title>
-<h1>{{diario.titulo}}</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{diario.titulo}}</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="library-theme">
+    <header>
+        <h1>{{diario.titulo}}</h1>
+    </header>
+    <main>
+        <img src="{{ diario.pre_visualizacion.url }}" alt="Previsualización de {{ diario.titulo }}" class="preview-img">
+        <p><strong>Fecha:</strong> {{diario.fecha}}</p>
+        <p><strong>Localidad:</strong> {{diario.localidad}}</p>
+        <p><strong>Código:</strong> {{diario.cod}}</p>
 
-<img src="{{ diario.pre_visualizacion.url }}" alt="Previsualizacion de {{ diario.titulo }}" width="300">
+        <nav>
+            <a href="{% url 'search_form' %}" class="button">Volver a la búsqueda</a>
+        </nav>
 
-<p><strong>Fecha:</strong> {{diario.fecha}}</p>
-<p><strong>Localidad:</strong>{{diario.localidad}}</p>
-<p><strong>Codigo:</strong>{{diario.cod}}</p>
-
-<a href="{% url 'search_form' %}">Volver a la búsqueda</a>
-
-<form action="{% url 'registrar_visita' diario.id %}" method="POST">
-    {% csrf_token %}
-    {% if user.is_authenticated %}
-        {% if disponibilidad.disponible %}
-            <button type="submit">Pedir diario</button>
-        {% else %}
-            <p>Este diario no está disponible actualmente.</p>
-        {% endif %}
-    {% else %}
-        <a href="{% url 'login' %}">
-            <button type="button">Inicia sesión para pedir un diario</button>
-        </a>
-    {% endif %}
-</form>
-
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-<!-- Formulario para registrar la solicitud del diario -->
-<form action="{% url 'solicitar_diario' diario.id %}" method="POST">
-    {% csrf_token %}
-    <button type="submit">PEDIR DIARIO</button>
-</form>
-
-<!-- Mensajes para notificar al usuario -->
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+        <form action="{% url 'registrar_visita' diario.id %}" method="POST" class="action-form">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+                {% if disponibilidad.disponible %}
+                    <button type="submit" class="button primary">Pedir diario</button>
+                {% else %}
+                    <p class="alert">Este diario no está disponible actualmente.</p>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}" class="button secondary">Inicia sesión para pedir un diario</a>
+            {% endif %}
+        </form>
+    </main>
+</body>
+</html>
