@@ -1,15 +1,30 @@
-<h1>Bienvenido, {{ user.username }}</h1>
-<h2>Historial de Diarios</h2>
-<ul>
-    {% for item in historial %}
-        <li>{{ item.diario.titulo }} - {{ item.fecha_visita }}</li>
-    {% empty %}
-        <li>No hay historial de visitas.</li>
-    {% endfor %}
-</ul>
-
-<div>
-    <a href="{% url 'home' %}">
-        <button type = "button">Volver al Home</button>
-    </a> 
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="library-theme">
+    <header>
+        <h1>Perfil de Usuario</h1>
+    </header>
+    <main>
+        <h2>Bienvenido, {{ user.username }}</h2>
+        <section>
+            <h3>Historial de Diarios</h3>
+            <ul>
+                {% for item in historial %}
+                    <li>{{ item.diario.titulo }} - {{ item.fecha_visita }}</li>
+                {% empty %}
+                    <li>No hay historial de visitas.</li>
+                {% endfor %}
+            </ul>
+        </section>
+        <nav>
+            <a href="{% url 'home' %}" class="button">Volver al Home</a>
+        </nav>
+    </main>
+</body>
+</html>
