@@ -1,5 +1,5 @@
 
-/* General styles for the library theme */
+/* estilos generales */
 body.library-theme {
     font-family: 'Georgia', serif;
     background-color: #f8f5f0;
@@ -9,7 +9,7 @@ body.library-theme {
     line-height: 1.6;
 }
 
-/* Header styles */
+/* titulos */
 header {
     background-color: #6b4f4f;
     color: white;
@@ -18,14 +18,14 @@ header {
     font-size: 1.5em;
 }
 
-/* Main container styles */
+/* main */
 main {
     padding: 20px;
     margin: auto;
     max-width: 800px;
 }
 
-/* Button styles */
+/* botones */
 .button {
     display: inline-block;
     padding: 10px 20px;
@@ -43,7 +43,7 @@ main {
     background-color: #6b4f4f;
 }
 
-/* Secondary button styles */
+/* botones secundarios */
 .button.secondary {
     background-color: #999;
 }
@@ -52,7 +52,7 @@ main {
     background-color: #777;
 }
 
-/* Form styles */
+/* form */
 form {
     margin: 20px 0;
 }
@@ -62,13 +62,13 @@ form .button {
     text-align: center;
 }
 
-/* Alert message styles */
+/* mensajes de alerta */
 .alert {
     color: red;
     font-weight: bold;
 }
 
-/* Link styles */
+/* links */
 .link {
     color: #8b5e3c;
     text-decoration: underline;
@@ -79,7 +79,7 @@ form .button {
     text-decoration: none;
 }
 
-/* Image styles */
+/* imagenes */
 .preview-img {
     display: block;
     margin: 20px auto;
