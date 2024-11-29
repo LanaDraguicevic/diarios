@@ -1,11 +1,23 @@
-<!-- archivo para el formulario de busqueda  (agustin) -->
- 
-<form action="{% url 'search_diarios' %}" method="get">
-    {{form.as_p}}
-    <button type="submit">Buscar</button>
-</form>
-<div>
-    <a href="{% url 'home' %}">
-        <button type = "button">Volver al Home</button>
-    </a> 
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Diarios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="library-theme">
+    <header>
+        <h1>Formulario de Búsqueda</h1>
+    </header>
+    <main>
+        <form action="{% url 'search_diarios' %}" method="get" class="search-form">
+            {{ form.as_p }}
+            <button type="submit" class="button primary">Buscar</button>
+        </form>
+        <nav>
+            <a href="{% url 'home' %}" class="button">Volver al Home</a>
+        </nav>
+    </main>
+</body>
+</html>
