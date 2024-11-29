@@ -1,0 +1,88 @@
+
+/* General styles for the library theme */
+body.library-theme {
+    font-family: 'Georgia', serif;
+    background-color: #f8f5f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Header styles */
+header {
+    background-color: #6b4f4f;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/* Main container styles */
+main {
+    padding: 20px;
+    margin: auto;
+    max-width: 800px;
+}
+
+/* Button styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #8b5e3c;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #6b4f4f;
+}
+
+/* Secondary button styles */
+.button.secondary {
+    background-color: #999;
+}
+
+.button.secondary:hover {
+    background-color: #777;
+}
+
+/* Form styles */
+form {
+    margin: 20px 0;
+}
+
+form .button {
+    width: 100%;
+    text-align: center;
+}
+
+/* Alert message styles */
+.alert {
+    color: red;
+    font-weight: bold;
+}
+
+/* Link styles */
+.link {
+    color: #8b5e3c;
+    text-decoration: underline;
+}
+
+.link:hover {
+    color: #6b4f4f;
+    text-decoration: none;
+}
+
+/* Image styles */
+.preview-img {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    height: auto;
+}
