@@ -68,22 +68,80 @@ form .button {
     text-align: center;
 }
 
+/* Contenedor del formulario */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Campos del formulario */
+.login-form p {
+    margin-bottom: 15px;
+}
+
+.login-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
 /* Mensajes de alerta */
 .alert {
     color: #d32f2f; /* Rojo para alertas */
     font-weight: bold;
 }
 
-/* Links */
+/* Enlaces */
 .link {
     color: #0288d1;
-    text-decoration: underline;
+    text-decoration: none;
     font-weight: bold;
 }
 
 .link:hover {
     color: #01579b; /* Azul más oscuro */
+    text-decoration: underline;
+}
+
+/* Auth buttons */
+.auth-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.auth-button {
+    background-color: #0288d1; /* Azul celeste oscuro */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
     text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+    background-color: #0277bd; /* Azul más oscuro al pasar */
 }
 
 /* Imágenes */
@@ -92,4 +150,26 @@ form .button {
     margin: 20px auto;
     max-width: 300px;
     height: auto;
+}
+.diario-image {
+    display: block;
+    margin: 20px auto;
+    max-width: 600px; /* Define un ancho máximo fijo */
+    width: 100%; /* Asegura que no exceda el contenedor */
+    height: auto; /* Mantiene la proporción original */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para mayor estética */
+}
+
+.image-container {
+    text-align: center; /* Centra la imagen dentro de su contenedor */
+    margin-bottom: 20px;
+}
+
+
+.info-container {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #333;
+    line-height: 1.6;
 }

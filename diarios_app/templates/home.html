@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hemeroteca Biblioteca Nacional</title>
-    <link rel="stylesheet" href="styles.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body class="library-theme">
     <header>
@@ -17,8 +17,8 @@
                     <button type="submit" class="button">Cerrar Sesión</button>
                 </form>
             {% else %}
-                <a href="{% url 'login' %}" class="button">Iniciar Sesión</a>
-                <a href="{% url 'iniciarsesion' %}" class="button">Registrarse</a>
+                <a href="{% url 'login' %}" class="button auth-button">Iniciar Sesión</a>
+                <a href="{% url 'iniciarsesion' %}" class="button auth-button">Registrarse</a>
             {% endif %}
         </div>
     </header>
@@ -30,4 +30,3 @@
     </main>
 </body>
 </html>
-

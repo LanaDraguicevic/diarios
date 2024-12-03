@@ -4,27 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
-    <link rel="stylesheet" href="styles.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body class="library-theme">
     <header>
         <h1>Registrarse</h1>
     </header>
     <main>
-        {% if form.errors %}
-            <p class="alert">{{ form.errors }}</p>
-        {% endif %}
-        
-        <form action="{% url 'iniciarsesion' %}" method="POST" class="auth-form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="button primary">Registrarse</button>
-        </form>
+        <div class="form-container">
+            {% if form.errors %}
+                <div class="alert">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <form action="{% url 'iniciarsesion' %}" method="POST" class="auth-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="button">Registrarse</button>
+            </form>
 
-        <p>¿Ya tienes una cuenta? 
-            <a href="{% url 'login' %}" class="link">Inicia sesión aquí</a>
-        </p>
+            <p>¿Ya tienes una cuenta? 
+                <a href="{% url 'login' %}" class="link">Inicia sesión aquí</a>
+            </p>
+        </div>
     </main>
 </body>
 </html>
-

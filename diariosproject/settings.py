@@ -118,7 +118,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[
-    BASE_DIR/ "media"
+    BASE_DIR/ "media","static"
 ]
 
 # Default primary key field type
@@ -130,6 +130,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR/ 'media/')
 
-LOGIN_REDIRECT_URL = '/perfil_usuario/'
-
+LOGIN_URL = '/login/'  # Ruta para la vista de inicio de sesión
+LOGOUT_URL = '/logout/'  # Ruta para la vista de cierre de sesión
+LOGIN_REDIRECT_URL = '/'  # Redirección tras iniciar sesión 
 

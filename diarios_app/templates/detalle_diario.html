@@ -4,22 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ diario.titulo }}</title>
-    <link rel="stylesheet" href="styles.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body class="library-theme">
     <header>
         <h1>{{ diario.titulo }}</h1>
     </header>
     <main>
-        <img src="{{ diario.pre_visualizacion.url }}" alt="Previsualización de {{ diario.titulo }}" class="preview-img">
-        <p><strong>Fecha:</strong> {{ diario.fecha }}</p>
-        <p><strong>Localidad:</strong> {{ diario.localidad }}</p>
-        <p><strong>Código:</strong> {{ diario.cod }}</p>
+        <!-- Contenedor para la imagen -->
+        <div class="image-container">
+            <img src="{{ diario.pre_visualizacion.url }}" alt="Previsualización de {{ diario.titulo }}" class="diario-image">
+        </div>
 
+        <!-- Información del diario -->
+        <div class="info-container">
+            <p><strong>Fecha:</strong> {{ diario.fecha }}</p>
+            <p><strong>Localidad:</strong> {{ diario.localidad }}</p>
+            <p><strong>Código:</strong> {{ diario.cod }}</p>
+        </div>
+
+        <!-- Navegación -->
         <nav>
             <a href="{% url 'search_form' %}" class="button">Volver a la búsqueda</a>
         </nav>
 
+        <!-- Formulario para registrar visita -->
         <form action="{% url 'registrar_visita' diario.id %}" method="POST" class="action-form">
             {% csrf_token %}
             {% if user.is_authenticated %}
@@ -33,26 +43,34 @@
             {% endif %}
         </form>
 
-        <h2>Reseñas</h2>
-        <div class="reviews">
-            {% for reseña in reseñas %}
-                <div class="review">
-                    <p><strong>{{ reseña.usuario.username }}</strong></p>
-                    <p>{{ reseña.comentario }}</p>
-                    <p><small>{{ reseña.fecha }}</small></p>
+        <!-- Reseñas -->
+        <section class="reviews-section">
+            <h2>Reseñas</h2>
+            {% if reseñas %}
+                <div class="reviews">
+                    {% for reseña in reseñas %}
+                        <div class="review">
+                            <p><strong>{{ reseña.usuario.username }}</strong></p>
+                            <p>{{ reseña.comentario }}</p>
+                            <p><small>{{ reseña.fecha }}</small></p>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% empty %}
+            {% else %}
                 <p>No hay reseñas para este diario aún.</p>
-            {% endfor %}
-        </div>
+            {% endif %}
+        </section>
 
+        <!-- Formulario para agregar reseñas -->
         {% if user.is_authenticated %}
-            <h3>Deja tu reseña</h3>
-            <form action="{% url 'detalle_diario' diario.id %}" method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="button primary">Enviar reseña</button>
-            </form>
+            <section class="add-review">
+                <h3>Deja tu reseña</h3>
+                <form action="{% url 'detalle_diario' diario.id %}" method="POST" class="review-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="button primary">Enviar reseña</button>
+                </form>
+            </section>
         {% else %}
             <p>Inicia sesión para dejar una reseña.</p>
         {% endif %}

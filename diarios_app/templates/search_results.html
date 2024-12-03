@@ -4,34 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados de Búsqueda</title>
-    <link rel="stylesheet" href="styles.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body class="library-theme">
     <header>
         <h1>Resultados de Búsqueda</h1>
     </header>
     <main>
-        <section>
-            <form method="GET" action="{% url 'search_diarios' %}" class="search-form">
+        <div class="form-container">
+            <form method="GET" action="{% url 'search_diarios' %}" class="auth-form">
                 {{ form.as_p }}
-                <button type="submit" class="button primary">Buscar</button>
+                <button type="submit" class="button">Buscar</button>
             </form>
-        </section>
-        <section>
+        </div>
+        <div class="results-container">
             <h2>Resultados</h2>
-            <ul>
-                {% for diario in results %}
-                    <li>
-                        <a href="{% url 'detalle_diario' diario.id %}" class="link">{{ diario.titulo }}</a> - {{ diario.fecha }} - {{ diario.localidad }}
-                    </li>
-                {% empty %}
-                    <li>No se encontraron resultados.</li>
-                {% endfor %}
-            </ul>
-        </section>
-        <nav>
-            <a href="{% url 'home' %}" class="button">Volver al Home</a>
-        </nav>
+            {% if results %}
+                <ul class="results-list">
+                    {% for diario in results %}
+                        <li class="result-item">
+                            <a href="{% url 'detalle_diario' diario.id %}" class="link">
+                                {{ diario.titulo }}
+                            </a> - {{ diario.fecha }} - {{ diario.localidad }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="alert">No se encontraron resultados.</p>
+            {% endif %}
+        </div>
+        <p>
+            <a href="{% url 'home' %}" class="link">Volver al Home</a>
+        </p>
     </main>
 </body>
 </html>
