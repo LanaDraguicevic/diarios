@@ -60,8 +60,8 @@ def search_diarios(request):
 
 
 @login_required
+@login_required
 def detalle_diario(request, diario_id):
-    """Vista para mostrar el detalle de un diario específico."""
     diario = get_object_or_404(Diarios, id=diario_id)
     reseñas = Reseña.objects.filter(diario=diario).order_by('-fecha')
     disponibilidad = diario.disponibilidad
@@ -77,7 +77,7 @@ def detalle_diario(request, diario_id):
                 messages.success(request, "Tu reseña se ha guardado correctamente.")
                 return redirect('detalle_diario', diario_id=diario.id)
         elif 'pedir_diario' in request.POST and disponibilidad and disponibilidad.disponible:
-            Historial.objects.get_or_create(usuario=request.user, diario=diario)
+            DiarioSolicitud.objects.create(usuario=request.user, diario=diario)
             disponibilidad.disponible = False
             disponibilidad.save()
             messages.success(request, "Diario pedido con éxito.")
@@ -92,15 +92,26 @@ def detalle_diario(request, diario_id):
     })
 
 
+    form = ReseñaForm()
+    return render(request, 'detalle_diario.html', {
+        'diario': diario,
+        'disponibilidad': disponibilidad,
+        'reseñas': reseñas,
+        'form': form,
+    })
+
+
 @login_required
 def solicitar_diario(request, diario_id):
     """Vista para solicitar un diario y marcarlo como no disponible."""
-    diario = get_object_or_404(Diarios, id=diario_id)
+    diario = get_object_or_404(Diarios.objects.select_related('disponibilidad'), id=diario_id)
+    disponibilidad = diario.disponibilidad
+
     if request.method == 'POST':
         DiarioSolicitud.objects.create(usuario=request.user, diario=diario)
-        if diario.disponibilidad and diario.disponibilidad.disponible:
-            diario.disponibilidad.disponible = False
-            diario.disponibilidad.save()
+        if disponibilidad and disponibilidad.disponible:
+            disponibilidad.disponible = False
+            disponibilidad.save()
             messages.success(request, 'Solicitud enviada con éxito. Espere en el mesón.')
         else:
             messages.error(request, 'Este diario ya no está disponible.')
@@ -112,7 +123,7 @@ def solicitar_diario(request, diario_id):
 @login_required
 def registrar_visita(request, diario_id):
     """Vista para registrar la visita de un diario."""
-    diario = get_object_or_404(Diarios, id=diario_id)
+    diario = get_object_or_404(Diarios.objects.select_related('disponibilidad'), id=diario_id)
     disponibilidad = diario.disponibilidad
 
     if disponibilidad and disponibilidad.disponible:
@@ -132,7 +143,5 @@ def registrar_visita(request, diario_id):
 @login_required
 def perfil_usuario(request):
     """Vista del perfil del usuario, mostrando su historial."""
-    usuario = request.user
-    historial_diarios = Historial.objects.filter(usuario=usuario).select_related('diario')
-
+    historial_diarios = Historial.objects.filter(usuario=request.user).select_related('diario')
     return render(request, 'perfil_usuario.html', {'historial': historial_diarios})

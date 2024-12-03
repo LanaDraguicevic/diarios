@@ -4,10 +4,18 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 class DiarioDisponibilidad(models.Model):
-    fecha = models.DateField()
-    codigo = models.CharField(max_length=100)
+    fecha = models.DateField(auto_now_add=True)
+    codigo = models.CharField(max_length=100, unique=True)
     disponible = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Asegurar que el diario asociado refleje el estado actualizado
+        if hasattr(self, 'diario'):
+            self.diario.disponibilidad = self
+            self.diario.save()
 
     def __str__(self):
         return f"Diario {self.codigo} - {'Disponible' if self.disponible else 'No disponible'}"
@@ -18,13 +26,18 @@ class Diarios(models.Model):
     fecha = models.DateField(null=True, blank=True)
     pre_visualizacion = models.ImageField(upload_to='pre-visualizacion/', null=True, blank=True)
     localidad = models.CharField(max_length=50)
-    cod = models.PositiveIntegerField(validators=[MaxValueValidator(99999999)], null=True, blank=True)
-    
-    # Relación con DiarioDisponibilidad
-    disponibilidad = models.OneToOneField(DiarioDisponibilidad, on_delete=models.CASCADE, null=True, blank=True)
+    cod = models.PositiveIntegerField(unique=True, null=True, blank=True)
+    disponibilidad = models.OneToOneField(
+        DiarioDisponibilidad,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='diario'
+    )
 
     def __str__(self):
         return self.titulo
+
 
 
 class Historial(models.Model):
@@ -59,7 +72,6 @@ class Reseña(models.Model):
         return f"Reseña de {self.usuario.username} para {self.diario.titulo}"
 
 
-# Señal para crear disponibilidad automáticamente al crear un Diario
 @receiver(post_save, sender=Diarios)
 def create_disponibilidad(sender, instance, created, **kwargs):
     if created and not instance.disponibilidad:

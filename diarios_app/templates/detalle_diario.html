@@ -9,7 +9,7 @@
 </head>
 <body class="library-theme">
     <header>
-        <h1>{{ diario.titulo }}</h1>
+        <h1 class="page-title">{{ diario.titulo }}</h1>
     </header>
     <main>
         <!-- Contenedor para la imagen -->
@@ -25,23 +25,25 @@
         </div>
 
         <!-- Navegación -->
-        <nav>
-            <a href="{% url 'search_form' %}" class="button">Volver a la búsqueda</a>
+        <nav class="navigation">
+            <a href="{% url 'search_form' %}" class="button secondary">Volver a la búsqueda</a>
         </nav>
 
         <!-- Formulario para registrar visita -->
-        <form action="{% url 'registrar_visita' diario.id %}" method="POST" class="action-form">
-            {% csrf_token %}
-            {% if user.is_authenticated %}
-                {% if disponibilidad.disponible %}
-                    <button type="submit" class="button primary">Pedir diario</button>
+        <section class="action-section">
+            <form action="{% url 'registrar_visita' diario.id %}" method="POST" class="action-form">
+                {% csrf_token %}
+                {% if user.is_authenticated %}
+                    {% if disponibilidad and disponibilidad.disponible %}
+                        <button type="submit" name="pedir_diario" class="button primary">Pedir diario</button>
+                    {% else %}
+                        <p class="alert">Este diario no está disponible actualmente.</p>
+                    {% endif %}
                 {% else %}
-                    <p class="alert">Este diario no está disponible actualmente.</p>
+                    <a href="{% url 'login' %}" class="button secondary">Inicia sesión para pedir un diario</a>
                 {% endif %}
-            {% else %}
-                <a href="{% url 'login' %}" class="button secondary">Inicia sesión para pedir un diario</a>
-            {% endif %}
-        </form>
+            </form>
+        </section>
 
         <!-- Reseñas -->
         <section class="reviews-section">
@@ -68,11 +70,11 @@
                 <form action="{% url 'detalle_diario' diario.id %}" method="POST" class="review-form">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="button primary">Enviar reseña</button>
+                    <button type="submit" name="reseña" class="button primary">Enviar reseña</button>
                 </form>
             </section>
         {% else %}
-            <p>Inicia sesión para dejar una reseña.</p>
+            <p class="login-reminder">Inicia sesión para dejar una reseña.</p>
         {% endif %}
     </main>
 </body>
