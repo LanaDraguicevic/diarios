@@ -1,58 +1,64 @@
-
 /* estilos generales */
 body.library-theme {
-    font-family: 'Georgia', serif;
-    background-color: #f8f5f0;
+    font-family: 'Tahoma', sans-serif;
+    background-color: #e3f2fd; /* Fondo celeste suave */
     color: #333;
     margin: 0;
     padding: 0;
     line-height: 1.6;
 }
 
-/* titulos */
+/* Encabezado */
 header {
-    background-color: #6b4f4f;
+    background-color: #0288d1; /* Azul celeste oscuro */
     color: white;
-    padding: 10px 20px;
+    padding: 15px 20px;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.8em;
+    border-bottom: 5px solid #0277bd; /* Borde decorativo */
 }
 
-/* main */
+/* Main */
 main {
     padding: 20px;
     margin: auto;
     max-width: 800px;
+    background: white; /* Fondo blanco para contraste */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* botones */
+/* Botones */
 .button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 12px 20px;
     margin: 10px 0;
-    background-color: #8b5e3c;
+    background-color: #0288d1; /* Azul celeste oscuro */
     color: white;
     text-decoration: none;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
 }
 
 .button:hover {
-    background-color: #6b4f4f;
+    background-color: #0277bd; /* Azul más oscuro al pasar */
 }
 
-/* botones secundarios */
+/* Botones secundarios */
 .button.secondary {
-    background-color: #999;
+    background-color: #b3e5fc; /* Azul celeste claro */
+    color: #0277bd;
 }
 
 .button.secondary:hover {
-    background-color: #777;
+    background-color: #81d4fa; /* Azul más vibrante */
 }
 
-/* form */
+/* Formularios */
 form {
     margin: 20px 0;
 }
@@ -62,24 +68,25 @@ form .button {
     text-align: center;
 }
 
-/* mensajes de alerta */
+/* Mensajes de alerta */
 .alert {
-    color: red;
+    color: #d32f2f; /* Rojo para alertas */
     font-weight: bold;
 }
 
-/* links */
+/* Links */
 .link {
-    color: #8b5e3c;
+    color: #0288d1;
     text-decoration: underline;
+    font-weight: bold;
 }
 
 .link:hover {
-    color: #6b4f4f;
+    color: #01579b; /* Azul más oscuro */
     text-decoration: none;
 }
 
-/* imagenes */
+/* Imágenes */
 .preview-img {
     display: block;
     margin: 20px auto;
