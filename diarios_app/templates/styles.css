@@ -90,6 +90,6 @@ form .button {
 .preview-img {
     display: block;
     margin: 20px auto;
-    max-width: 100%;
+    max-width: 300px;
     height: auto;
 }

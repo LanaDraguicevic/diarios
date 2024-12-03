@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{diario.titulo}}</title>
+    <title>{{ diario.titulo }}</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="library-theme">
     <header>
-        <h1>{{diario.titulo}}</h1>
+        <h1>{{ diario.titulo }}</h1>
     </header>
     <main>
         <img src="{{ diario.pre_visualizacion.url }}" alt="Previsualización de {{ diario.titulo }}" class="preview-img">
-        <p><strong>Fecha:</strong> {{diario.fecha}}</p>
-        <p><strong>Localidad:</strong> {{diario.localidad}}</p>
-        <p><strong>Código:</strong> {{diario.cod}}</p>
+        <p><strong>Fecha:</strong> {{ diario.fecha }}</p>
+        <p><strong>Localidad:</strong> {{ diario.localidad }}</p>
+        <p><strong>Código:</strong> {{ diario.cod }}</p>
 
         <nav>
             <a href="{% url 'search_form' %}" class="button">Volver a la búsqueda</a>
@@ -32,6 +32,30 @@
                 <a href="{% url 'login' %}" class="button secondary">Inicia sesión para pedir un diario</a>
             {% endif %}
         </form>
+
+        <h2>Reseñas</h2>
+        <div class="reviews">
+            {% for reseña in reseñas %}
+                <div class="review">
+                    <p><strong>{{ reseña.usuario.username }}</strong></p>
+                    <p>{{ reseña.comentario }}</p>
+                    <p><small>{{ reseña.fecha }}</small></p>
+                </div>
+            {% empty %}
+                <p>No hay reseñas para este diario aún.</p>
+            {% endfor %}
+        </div>
+
+        {% if user.is_authenticated %}
+            <h3>Deja tu reseña</h3>
+            <form action="{% url 'detalle_diario' diario.id %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="button primary">Enviar reseña</button>
+            </form>
+        {% else %}
+            <p>Inicia sesión para dejar una reseña.</p>
+        {% endif %}
     </main>
 </body>
 </html>

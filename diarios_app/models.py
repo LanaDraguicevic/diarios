@@ -43,4 +43,11 @@ class DiarioSolicitud(models.Model):
     def __str__(self):
         return f"{self.usuario.username} - {self.diario.titulo} - {self.fecha_solicitud.strftime('%Y-%m-%d %H:%M:%S')}"
 
-    
+class Reseña(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    diario = models.ForeignKey(Diarios, on_delete=models.CASCADE)
+    comentario = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Reseña de {self.usuario.username} para {self.diario.titulo}"

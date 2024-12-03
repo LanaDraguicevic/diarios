@@ -1,5 +1,6 @@
 from django import forms
 from .models import Historial
+from .models import Reseña
 
 class Busqueda(forms.Form):
 
@@ -18,3 +19,11 @@ class VisitaDiariosForm(forms.ModelForm):
     class Meta:
         model = Historial
         fields = []
+
+class ReseñaForm(forms.ModelForm):
+    class Meta:
+        model = Reseña
+        fields = ['comentario']
+        labels = {
+            'comentario': 'Tu comentario'
+        }
